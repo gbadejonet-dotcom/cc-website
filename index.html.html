@@ -5,7 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cognitive Compliance | Regulatory Remediation & Financial Crime Transformation</title>
   <meta name="description" content="Specialist regulatory remediation and financial crime transformation for Tier 1 banks, regulators, and fintechs. KYC at scale, AML control frameworks, UBO transparency." />
+    <meta name="copyright" content="© 2025 Cognitive Compliance Limited. All Rights Reserved." />
+  <meta name="author" content="Cognitive Compliance Limited" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:site_name" content="Cognitive Compliance" />
+  <!-- Content ownership: Cognitive Compliance Limited, England & Wales. Registered 2024. -->
+  <!-- Unauthorised reproduction of content, case studies or methodologies is prohibited. -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <meta name="copyright" content="© 2025 Cognitive Compliance Limited. All Rights Reserved." />
+  <meta name="author" content="Cognitive Compliance Limited" />
+  <meta name="robots" content="index, follow" />
+  <meta property="og:site_name" content="Cognitive Compliance" />
+  <!-- Content ownership: Cognitive Compliance Limited, England & Wales. Registered 2024. -->
+  <!-- Unauthorised reproduction of content, case studies or methodologies is prohibited. -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
@@ -148,7 +160,10 @@
     .reveal { opacity: 1; transform: none; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
     /* Fallback: show everything if JS hasn't fired within 2s */
-    .reveal-fallback .reveal { opacity: 1; transform: none; }
+    .reveal-fallback .reveal {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
     .reveal-delay-1 { transition-delay: 0.08s; }
     .reveal-delay-2 { transition-delay: 0.16s; }
     .reveal-delay-3 { transition-delay: 0.24s; }
@@ -2515,7 +2530,7 @@
       </div>
 
       <div class="footer-bottom">
-        <div class="footer-copy">© 2025 Cognitive Compliance Limited. All rights reserved.</div>
+        <div class="footer-copy">© 2025 Cognitive Compliance Limited. All rights reserved. All content, case studies, methodologies, and frameworks are the intellectual property of Cognitive Compliance Limited and may not be reproduced without express written permission.</div>
         <div class="footer-reg">
           This website is for informational purposes only. Cognitive Compliance Limited provides
           specialist advisory services and does not provide legal or audit opinions.
@@ -2546,10 +2561,31 @@
       link.addEventListener('click', () => mobileMenu.classList.remove('open'));
     });
 
-    // Reveal: all content visible immediately
+    // ── Scroll reveal ─────────────────────────
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Fallback: force-show all reveals after 2.5 seconds in case observer fails
+    setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => {
+        el.classList.add('visible');
+      });
+    }, 2500);
+
+    // Also reveal everything above the fold immediately
     document.querySelectorAll('.reveal').forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('visible');
+      }
     });
 
     // ── Risk bar animation (triggered on scroll) ──
@@ -2611,3 +2647,121 @@
     // ── Smooth anchor scroll ──────────────────
     document.querySelectorAll('a[href^="#"]').forEach(a => {
       a.addEventListener
+
+  <!-- ═══════════════════════════════════════
+       CONTENT PROTECTION
+  ════════════════════════════════════════════ -->
+  <style>
+    #cc-legal-toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0A1525;
+      border: 1px solid rgba(10,132,255,0.3);
+      border-radius: 8px;
+      padding: 14px 24px;
+      color: #8899BB;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      z-index: 99999;
+      transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+      max-width: 480px;
+      text-align: center;
+      pointer-events: none;
+    }
+    #cc-legal-toast.show { transform: translateX(-50%) translateY(0); }
+    #cc-legal-toast strong { color: #F0F4FF; }
+  </style>
+
+  <div id="cc-legal-toast">
+    <strong>© Cognitive Compliance Limited</strong> — All content is proprietary and protected by copyright law.
+  </div>
+
+  <script>
+    // ── Copyright watermark in console ─────────────────────────────────────
+    console.log(
+      '%c© Cognitive Compliance Limited 2025',
+      'color:#0A84FF; font-size:14px; font-weight:bold; padding:8px 0;'
+    );
+    console.log(
+      '%cAll content, case studies, methodologies and frameworks on this site are the intellectual\nproperty of Cognitive Compliance Limited, registered in England & Wales.\nUnauthorised reproduction is prohibited and may result in legal action.',
+      'color:#8899BB; font-size:12px;'
+    );
+
+    // ── Disable right-click ────────────────────────────────────────────────
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault();
+      showToast();
+      return false;
+    });
+
+    // ── Disable text selection on content sections ─────────────────────────
+    const protectedSections = ['#services', '#cases', '#insights', '#credibility'];
+    protectedSections.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el) {
+        el.style.webkitUserSelect = 'none';
+        el.style.mozUserSelect = 'none';
+        el.style.msUserSelect = 'none';
+        el.style.userSelect = 'none';
+      }
+    });
+
+    // ── Block keyboard shortcuts ───────────────────────────────────────────
+    document.addEventListener('keydown', function(e) {
+      // Ctrl+U (view source), Ctrl+S (save), Ctrl+Shift+I (devtools), F12
+      const blocked = (
+        (e.ctrlKey && e.key === 'u') ||
+        (e.ctrlKey && e.key === 's') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+        (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+        e.key === 'F12'
+      );
+      if (blocked) {
+        e.preventDefault();
+        showToast();
+        return false;
+      }
+    });
+
+    // ── Block drag-to-copy ────────────────────────────────────────────────
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+      return false;
+    });
+
+    // ── Detect print attempt ───────────────────────────────────────────────
+    window.addEventListener('beforeprint', function() {
+      showToast();
+    });
+
+    // ── Toast notification ─────────────────────────────────────────────────
+    function showToast() {
+      const toast = document.getElementById('cc-legal-toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // ── Invisible ownership watermark in DOM ───────────────────────────────
+    const watermark = document.createComment(
+      ' COGNITIVE COMPLIANCE LIMITED — Proprietary Content ' +
+      '| cognitive-compliance.co.uk ' +
+      '| © 2025 All Rights Reserved ' +
+      '| England & Wales ' +
+      '| Reproduction prohibited without written consent '
+    );
+    document.body.appendChild(watermark);
+
+    // ── Page visibility API — detect tab switching for screenshotters ──────
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') {
+        document.title = '© Cognitive Compliance — Protected Content';
+      } else {
+        document.title = 'Cognitive Compliance | Regulatory Remediation & Financial Crime Transformation';
+      }
+    });
+  </script>
+</body>
+</html>
