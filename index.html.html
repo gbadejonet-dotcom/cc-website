@@ -147,22 +147,17 @@
     ───────────────────────────────────────────── */
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1),
-                  transform 0.6s cubic-bezier(0.4,0,0.2,1);
+      transform: translateY(30px);
+      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1),
+                  transform 0.7s cubic-bezier(0.4,0,0.2,1);
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
-    /* Fallback: show everything if JS hasn't fired within 2s */
-    .reveal-fallback .reveal {
-      opacity: 1 !important;
-      transform: translateY(0) !important;
-    }
-    .reveal-delay-1 { transition-delay: 0.08s; }
-    .reveal-delay-2 { transition-delay: 0.16s; }
-    .reveal-delay-3 { transition-delay: 0.24s; }
-    .reveal-delay-4 { transition-delay: 0.32s; }
-    .reveal-delay-5 { transition-delay: 0.40s; }
-    .reveal-delay-6 { transition-delay: 0.48s; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
 
     /* ─────────────────────────────────────────────
        NAV
@@ -2562,24 +2557,9 @@
           revealObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    // Fallback: force-show all reveals after 2.5 seconds in case observer fails
-    setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach(el => {
-        el.classList.add('visible');
-      });
-    }, 2500);
-
-    // Also reveal everything above the fold immediately
-    document.querySelectorAll('.reveal').forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight) {
-        el.classList.add('visible');
-      }
-    });
 
     // ── Risk bar animation (triggered on scroll) ──
     const riskBars = document.querySelectorAll('.risk-bar-fill');
